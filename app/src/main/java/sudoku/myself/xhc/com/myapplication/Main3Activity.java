@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,5 +29,11 @@ public class Main3Activity extends AppCompatActivity {
         MyRecyleAdapter adapter = new MyRecyleAdapter( list , this);
         rcView.setAdapter(adapter);
         rcView.setLayoutManager(new LinearLayoutManager(this));
+        adapter.addOnRecyleItemClick(new OnRecyleItemClick<ClassifyBean>() {
+            @Override
+            public void onItemClick(View v, ClassifyBean o, int position) {
+                Toast.makeText(Main3Activity.this, o.getName() , Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

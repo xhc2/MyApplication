@@ -17,7 +17,7 @@ public abstract class MyBaseAdapter<T, V extends RecyclerView.ViewHolder> extend
 
     protected List<T> list = new ArrayList<T>();
     protected Context context;
-
+    protected OnRecyleItemClick lis ;
     protected DisplayImageOptions options;
     protected ImageLoader imageLoader = null;
 
@@ -31,6 +31,10 @@ public abstract class MyBaseAdapter<T, V extends RecyclerView.ViewHolder> extend
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void addOnRecyleItemClick(OnRecyleItemClick lis  ){
+        this.lis = lis;
     }
 
     public void refreshAllData(List<T> list) {
@@ -47,7 +51,9 @@ public abstract class MyBaseAdapter<T, V extends RecyclerView.ViewHolder> extend
     @Override
     public abstract void onBindViewHolder(V holder, int position);
 
-    protected void displayImageView(ImageView img, String url) {
+
+
+    protected synchronized void displayImageView(ImageView img, String url) {
         if (options == null) {
             //使用的时候才加载
             imageLoader = ImageLoader.getInstance();
